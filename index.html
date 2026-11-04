@@ -90,7 +90,6 @@
     <iframe src="https://website/website"></iframe>
     <dialog id="myPopup">
         <h2>Welcome!</h2>
-        <p>System built by Zimo (<a href="https://github.com/zimoshi/InstallableJavaScriptApp/">here</a>)</p>
         <button id="install">Install as app</button>
         
         <button id="closePopup">Close</button>
@@ -99,86 +98,6 @@
     <button id="floatingMenuBtn" aria-label="Open Menu">⚙️</button>
 
 
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                .then(reg => console.log('Service Worker registered successfully.', reg.scope))
-                .catch(err => console.error('Service Worker registration failed:', err));
-            });
-        }
-        const closeBtn = document.getElementById("closePopup");
-        const popup = document.getElementById("myPopup");
-        const floatingBtn = document.getElementById("floatingMenuBtn");
-
-        function openPopup() {popup.showModal();}
-
-        function closePopup() {popup.close();}
-
-        closeBtn.addEventListener("click", closePopup);
-
-        floatingBtn.addEventListener("click", openPopup);
-
-
-        window.addEventListener("message", (e) => {
-            // Security check: Only accept messages from your verified iframe domain
-            if (e.origin !== "https://github.io") return;
-
-            // If the iframe says the user pressed Escape, open the popup
-            if (e.data && e.data.type === "OPEN_POPUP") {
-                if (!popup.open) {
-                openPopup();
-                }
-            }
-        });
-        
-        popup.addEventListener("click", (e) => {
-            const rect = popup.getBoundingClientRect();
-            
-            const clickedOutside = 
-                e.clientX < rect.left ||
-                e.clientX > rect.right ||
-                e.clientY < rect.top ||
-                e.clientY > rect.bottom;
-
-            if (clickedOutside) {
-                closePopup();
-            }
-        });
-
-
-        window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-            if (popup.open) {e.preventDefault(); 
-            } else {openPopup();}
-        }
-        });
-        let deferredPrompt;
-
-        let installBtn = document.getElementById("install");
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installBtn.style.display = "inline-block";
-        });
-
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                
-                const { outcome } = await deferredPrompt.userChoice;
-                console.log(`User response to install prompt: ${outcome}`);
-                deferredPrompt = null;
-                installBtn.style.display = "none";
-            }
-        });
-
-        window.addEventListener('appinstalled', () => {
-            console.log('App was successfully installed into the system.');
-            installBtn.style.display = 'none';
-        });
-
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>
