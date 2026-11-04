@@ -23,6 +23,8 @@ The newest way to install a webpage as a app!
 4. You have installed your app!
 
 ## How to make multiple forks
-1. Click on "Code" and click on "Download ZIP".
-2. Then, upload it to GitHub with "New repository".
-3. Finished!
+1. Click <a href="https://github.com/zimoshi/InstallableJavaScriptApp/raw/refs/heads/main/InstallableJavaScriptApp-main.zip">here</a> to download the zip file.
+2. Unzip the zip file.
+3. Create a new repo.
+4. Upload the files.
+5. You're finished!!
